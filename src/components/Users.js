@@ -23,44 +23,7 @@ function Users() {
     }
 
     fetchMyAPI();
-  }, [dispatch, users]);
-
-  //   const [data, dataSet] = useState(null);
-
-  //   useEffect(() => {
-  //     async function fetchMyAPI() {
-  //       const baseUrl = 'http://localhost:3001/api/users/';
-  //       const request = await fetch(baseUrl);
-
-  //       const res = await request.data;
-  //       dataSet(res);
-  //       return res;
-  //     }
-  //     const data = fetchMyAPI();
-  //   let response = await getAllUsers();
-  //   const data = await response.data;
-
-  // console.log('data', data);
-  // dispatch({
-  //   type: 'GET_USERS',
-  //   payload: data
-  // });
-  // }
-  //   }, [dispatch]);
-
-  //   async function fetchMyAPI() {
-  //     const baseUrl = 'http://localhost:3001/api/users/';
-  //     const request = await fetch(baseUrl);
-  //     const res = await request.json();
-  //     return res;
-  //   }
-
-  //   async function get() {
-  //     const data = await fetchMyAPI();
-  //     console.log('data   ', data);
-  //   }
-
-  //   get();
+  }, [dispatch]);
 
   console.log('users   ', users);
   //  {
@@ -69,16 +32,4 @@ function Users() {
   return <div>users {JSON.stringify(users)}</div>;
 }
 
-const mapDispatchToProps = {
-  getUsers
-};
-
-const mapStateToProps = state => {
-  return {
-    users: state.users
-  };
-};
-
-const ConnectedUsers = connect(mapStateToProps, null)(Users);
-
-export default ConnectedUsers;
+export default Users;
