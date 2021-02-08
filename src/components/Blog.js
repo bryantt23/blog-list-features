@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { deleteBlog, addLike } from '../services/blogs';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { initializeBlogs } from '../reducers/blogReducer';
 
 const Blog = ({ blog }) => {
   const blogStyle = {
@@ -10,6 +12,7 @@ const Blog = ({ blog }) => {
     borderWidth: 1,
     marginBottom: 5
   };
+  const dispatch = useDispatch();
 
   const [expanded, setExpanded] = useState(true);
 
@@ -42,10 +45,11 @@ const Blog = ({ blog }) => {
 
   const isUserBlog = checkIfUserBlog();
 
-  function deleteThisBlog(blogId) {
+  async function deleteThisBlog(blogId) {
     if (window.confirm('Delete this blog?')) {
       console.log('delete this');
-      deleteBlog(blogId);
+      await deleteBlog(blogId);
+      dispatch(initializeBlogs());
     } else {
       console.log('do not delete this');
     }
