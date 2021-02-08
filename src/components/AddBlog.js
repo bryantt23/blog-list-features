@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { addBlog, getAllBlogs } from '../services/blogs';
+import { addBlog } from '../services/blogs';
 import { notificationAddBlog } from '../reducers/notificationReducer';
 import { connect } from 'react-redux';
+import { initializeBlogs } from '../reducers/blogReducer';
+import { useDispatch } from 'react-redux';
 
 function AddBlog(props) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -15,8 +18,7 @@ function AddBlog(props) {
     if (res.error) {
       props.notificationAddBlog(res.error, 'error', 5);
     } else {
-      //TODO maybe later make it render immediately, doesn't work now
-      getAllBlogs();
+      dispatch(initializeBlogs());
       props.notificationAddBlog('Blog has been added', 'success', 5);
     }
   };
