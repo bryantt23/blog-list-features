@@ -31,6 +31,7 @@ const addBlog = async (title, author, url) => {
 
 // https://stackoverflow.com/questions/21393706/node-js-put-with-request-module
 const addLike = async (id, likes) => {
+  console.log(likes, 'likes');
   const likesData = JSON.stringify({ likes: likes + 1 });
   console.log(id, 'id');
   console.log(likes, 'likes');

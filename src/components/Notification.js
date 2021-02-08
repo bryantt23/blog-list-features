@@ -1,5 +1,6 @@
 import React from 'react';
 // import './Notification.css';
+import { useSelector } from 'react-redux';
 
 const styleMap = {
   success: {
@@ -11,12 +12,18 @@ const styleMap = {
 };
 
 function Notification({ message, classStyle }) {
+  console.log('NNotification', message);
+  const notification = useSelector(state => state.notification);
+  // debugger;
   console.log('classStyle', classStyle);
-  if (message === null) {
+  console.log('notification', notification);
+  if (notification.message === null) {
     return null;
   }
 
-  return <div style={styleMap[classStyle]}>{message}</div>;
+  return (
+    <div style={styleMap[notification.classStyle]}>{notification.message}</div>
+  );
 }
 
 export default Notification;

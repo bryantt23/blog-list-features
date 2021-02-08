@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import blogService from '../services/blogs';
+import { notificationAddBlog } from '../reducers/notificationReducer';
+import { connect } from 'react-redux';
 
-import Notification from './Notification';
-
-function AddBlog() {
+function AddBlog(props) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
@@ -25,17 +25,17 @@ function AddBlog() {
     const res = await blogService.addBlog(title, author, url);
     console.log('res', res);
     if (res.error) {
+      props.notificationAddBlog(res.error, 'error', 5);
       showTemporaryMessage(res.error, 'error');
     } else {
       //TODO maybe later make it render immediately, doesn't work now
       blogService.getAll();
-      showTemporaryMessage('Blog has been added', 'success');
+      props.notificationAddBlog('Blog has been added', 'success', 5);
     }
   };
 
   return (
     <div>
-      <Notification message={message} classStyle={classStyle} />
       <h1>Create new</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -74,4 +74,10 @@ function AddBlog() {
   );
 }
 
-export default AddBlog;
+const mapDispatchToProps = {
+  notificationAddBlog
+};
+
+const ConnectedAddBlog = connect(null, mapDispatchToProps)(AddBlog);
+
+export default ConnectedAddBlog;
