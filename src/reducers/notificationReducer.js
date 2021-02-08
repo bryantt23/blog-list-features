@@ -4,7 +4,7 @@ const initialState = { show: false, message: '' };
 let timeoutId;
 export const notificationAddBlog = (message, classStyle, timeout) => {
   // console.log('notificationAddBlog', content);
-  debugger;
+  // debugger;
   return async dispatch => {
     dispatch({
       type: 'ADD_BLOG_NOTIFICATION',
@@ -16,7 +16,7 @@ export const notificationAddBlog = (message, classStyle, timeout) => {
     // https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout
     timeoutId = setTimeout(() => {
       dispatch(notificationHide());
-    }, timeout * 5000);
+    }, timeout * 1000);
   };
 };
 

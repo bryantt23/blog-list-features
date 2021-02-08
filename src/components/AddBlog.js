@@ -8,25 +8,12 @@ function AddBlog(props) {
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
 
-  //   https://github.com/bryantt23/phonebook/blob/master/src/PersonForm.js
-  const [message, setMessage] = useState('');
-  const [classStyle, setClassStyle] = useState('');
-  const showTemporaryMessage = (message, style) => {
-    setMessage(message);
-    setClassStyle(style);
-
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000);
-  };
-
   const handleSubmit = async e => {
     e.preventDefault();
     const res = await blogService.addBlog(title, author, url);
     console.log('res', res);
     if (res.error) {
       props.notificationAddBlog(res.error, 'error', 5);
-      showTemporaryMessage(res.error, 'error');
     } else {
       //TODO maybe later make it render immediately, doesn't work now
       blogService.getAll();
