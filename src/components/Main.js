@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import userService from '../services/users';
+import { login } from '../services/users';
 import { useDispatch } from 'react-redux';
 import { initializeBlogs } from '../reducers/blogReducer';
 import { checkIfUserLoggedIn, setUser, logout } from '../reducers/userReducer';
 import { connect } from 'react-redux';
 import BlogList from './BlogList';
 import AddBlog from './AddBlog';
+import { useSelector } from 'react-redux';
 
-function Main(props) {
+function Main() {
+  const user = useSelector(state => state.user);
+  console.log('user   ', user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,6 +19,7 @@ function Main(props) {
     dispatch(checkIfUserLoggedIn());
   }, [dispatch]);
 
+  console.log('user   ', user);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [formVisible, setFormVisible] = useState(false);
@@ -28,7 +33,7 @@ function Main(props) {
   //TODO: make it reflect in UI
   const handleLogin = async e => {
     e.preventDefault();
-    const res = await userService.login(username, password);
+    const res = await login(username, password);
     if (res.error) {
       console.log(res.error);
     } else {
@@ -37,19 +42,7 @@ function Main(props) {
     }
   };
 
-  if (!Object.entries(props.user).length) {
-    return (
-      <div>
-        <h2>Log in to application</h2>
-        <form onSubmit={handleLogin}>
-          <input onChange={e => setUsername(e.target.value)} />
-          <input onChange={e => setPassword(e.target.value)} />
-          <button type='submit'>Submit</button>
-        </form>
-      </div>
-    );
-  }
-  if (!Object.entries(props.user).length) {
+  if (!user.loggedIn) {
     return (
       <div>
         <h2>Log in to application</h2>
@@ -71,7 +64,7 @@ function Main(props) {
   //   }
   // }, []);
 
-  console.log(props.user);
+  console.log(user);
   // https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
 
   // <Router>
@@ -81,7 +74,7 @@ function Main(props) {
     <div>
       <h2>blogs</h2>
       <h3>
-        {`Username ${props.user.username} is logged in `}
+        {`Username ${user.username} is logged in `}
         <button onClick={handleLogout}>logout</button>
       </h3>
 

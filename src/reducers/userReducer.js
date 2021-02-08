@@ -1,3 +1,5 @@
+// import { getAllUsers } from '../services/users';
+
 const initialState = {};
 
 export const checkIfUserLoggedIn = () => {
@@ -33,13 +35,33 @@ export const logout = () => {
   };
 };
 
+// export const getUsers = () => {
+//   return async dispatch => {
+//     const users = await getAllUsers();
+
+//     dispatch({
+//       type: 'GET_USERS',
+//       payload: users
+//     });
+//   };
+// };
+
+// export const getUsers = users => ({
+//   type: 'GET_USERS',
+//   payload: users
+// });
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGOUT':
-      return { ...state, user: null };
+      return { ...state, user: null, loggedIn: false };
+    case 'GET_USERS':
+      const users = action.payload;
+      console.log('users', users);
+      return { ...state, users };
     case 'SET_USER':
       const { user, username, token } = action.payload;
-      return { ...state, user, username, token };
+      return { ...state, user, username, token, loggedIn: true };
     default:
       return state;
   }
