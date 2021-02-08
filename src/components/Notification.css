@@ -1,0 +1,11 @@
+.success {
+  background-color: 'green';
+  font-style: 'italic';
+  font-size: 16px;
+}
+
+.error {
+  background-color: red;
+  font-style: 'bold';
+  font-size: 16px;
+}
