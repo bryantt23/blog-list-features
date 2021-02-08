@@ -55,6 +55,11 @@ const Blog = ({ blog }) => {
     }
   }
 
+  async function likeThisBlog(blogId, likes) {
+    await addLike(blogId, likes);
+    dispatch(initializeBlogs());
+  }
+
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author} {JSON.stringify(blog)}
@@ -64,7 +69,7 @@ const Blog = ({ blog }) => {
         Likes: {blog.likes}
         <button
           onClick={() => {
-            addLike(blog.id, blog.likes);
+            likeThisBlog(blog.id, blog.likes);
             console.log(blog.id);
           }}
         >

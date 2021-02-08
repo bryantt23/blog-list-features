@@ -4,7 +4,12 @@ import Blog from './Blog';
 
 function BlogList(props) {
   let blogsArr = Object.entries(props.blogs).map(obj => obj[1]);
-  blogsArr.sort((a, b) => b.likes - a.likes);
+  blogsArr.sort((a, b) => {
+    if (a.likes !== b.likes) {
+      return b.likes - a.likes;
+    }
+    return a.title - b.title;
+  });
 
   return (
     <div>
