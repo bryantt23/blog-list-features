@@ -1,4 +1,4 @@
-// import { getAllUsers } from '../services/users';
+import { getAllUsers } from '../services/users';
 
 const initialState = {};
 
@@ -46,10 +46,14 @@ export const logout = () => {
 //   };
 // };
 
-// export const getUsers = users => ({
-//   type: 'GET_USERS',
-//   payload: users
-// });
+export const getUsers = users => {
+  return async dispatch => {
+    dispatch({
+      type: 'GET_USERS',
+      payload: users
+    });
+  };
+};
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
