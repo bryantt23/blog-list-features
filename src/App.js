@@ -5,27 +5,35 @@ import userService from './services/users';
 import Notification from './components/Notification';
 import { useDispatch } from 'react-redux';
 import { initializeBlogs } from './reducers/blogReducer';
+import { checkIfUserLoggedIn, setUser, logout } from './reducers/userReducer';
+import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
-const App = () => {
+const App = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(initializeBlogs());
+    dispatch(checkIfUserLoggedIn());
   }, [dispatch]);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
   const [formVisible, setFormVisible] = useState(false);
+  // const [user, setUser] = useState(null);
 
   const hideWhenVisible = { display: formVisible ? 'none' : '' };
   const showWhenVisible = { display: formVisible ? '' : 'none' };
 
-  useEffect(() => {
-    if (localStorage.getItem('user')) {
-      setUser(JSON.parse(localStorage.getItem('user')));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('user')) {
+  //     setUser(JSON.parse(localStorage.getItem('user')));
+  //   }
+  // }, []);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -34,12 +42,13 @@ const App = () => {
       console.log(res.error);
     } else {
       const { name, username, token } = res;
-      localStorage.setItem('user', JSON.stringify({ name, username, token }));
       setUser({ name, username, token });
     }
   };
 
-  if (user === null) {
+  console.log(props.user);
+  // https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+  if (!Object.entries(props.user).length) {
     return (
       <div>
         <h2>Log in to application</h2>
@@ -52,18 +61,13 @@ const App = () => {
     );
   }
 
-  function logout() {
-    setUser(null);
-    localStorage.clear();
-  }
-
   return (
     <div>
       <h2>blogs</h2>
       <Notification />
       <h3>
-        {`Username ${user.username} is logged in `}
-        <button onClick={logout}>logout</button>
+        {`Username ${props.user.username} is logged in `}
+        <button onClick={handleLogout}>logout</button>
       </h3>
 
       <BlogList />
@@ -82,4 +86,17 @@ const App = () => {
   );
 };
 
-export default App;
+const mapDispatchToProps = {
+  logout,
+  setUser
+};
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default ConnectedApp;
