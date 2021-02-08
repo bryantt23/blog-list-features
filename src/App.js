@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import Blog from './components/Blog';
+// import Blog from './components/Blog';
+import BlogList from './components/BlogList';
 import AddBlog from './components/AddBlog';
-import blogService from './services/blogs';
+// import { getAllBlogs } from './services/blogs';
 import userService from './services/users';
 import Notification from './components/Notification';
+import { useDispatch } from 'react-redux';
+import { initializeBlogs } from './reducers/blogReducer';
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeBlogs());
+  }, [dispatch]);
+
+  // const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
@@ -33,16 +42,16 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      // You can await here
-      const blogs = await blogService.getAll();
-      let blogsArr = Object.entries(blogs).map(obj => obj[1]);
-      blogsArr.sort((a, b) => b.likes - a.likes);
-      setBlogs(blogsArr);
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     // You can await here
+  //     const blogs = await getAllBlogs();
+  //     let blogsArr = Object.entries(blogs).map(obj => obj[1]);
+  //     blogsArr.sort((a, b) => b.likes - a.likes);
+  //     // setBlogs(blogsArr);
+  //   }
+  //   fetchData();
+  // }, []);
 
   if (user === null) {
     return (
@@ -70,9 +79,10 @@ const App = () => {
         {`Username ${user.username} is logged in `}
         <button onClick={logout}>logout</button>
       </h3>
-      {blogs.map(blog => (
+      {/* {blogs.map(blog => (
         <Blog key={blog.id} blog={blog} />
-      ))}
+      ))} */}
+      <BlogList />
 
       <div style={showWhenVisible}>
         <AddBlog />

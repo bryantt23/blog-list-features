@@ -2,7 +2,7 @@ import axios from 'axios';
 const baseUrl = 'http://localhost:3001/api/blogs/';
 // import blogService from './services/blogs';
 
-const getAll = async () => {
+export const getAllBlogs = async () => {
   const request = await axios.get(baseUrl);
   const data = await request.data;
   return data;
@@ -13,7 +13,7 @@ function getAuthorizationInfo() {
 }
 
 // https://stackoverflow.com/questions/50403231/request-api-node-js-using-bearer-token/50405905
-const addBlog = async (title, author, url) => {
+export const addBlog = async (title, author, url) => {
   const authorizationInfo = getAuthorizationInfo();
   const requestOptions = {
     method: 'POST',
@@ -30,7 +30,7 @@ const addBlog = async (title, author, url) => {
 };
 
 // https://stackoverflow.com/questions/21393706/node-js-put-with-request-module
-const addLike = async (id, likes) => {
+export const addLike = async (id, likes) => {
   console.log(likes, 'likes');
   const likesData = JSON.stringify({ likes: likes + 1 });
   console.log(id, 'id');
@@ -50,7 +50,7 @@ const addLike = async (id, likes) => {
   return data;
 };
 
-const deleteBlog = async id => {
+export const deleteBlog = async id => {
   console.log(id, 'id');
   const authorizationInfo = getAuthorizationInfo();
   const requestOptions = {
@@ -65,5 +65,3 @@ const deleteBlog = async id => {
 
   return data;
 };
-
-export default { getAll, addBlog, addLike, deleteBlog };

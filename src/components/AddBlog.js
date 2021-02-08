@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import blogService from '../services/blogs';
+import { addBlog, getAllBlogs } from '../services/blogs';
 import { notificationAddBlog } from '../reducers/notificationReducer';
 import { connect } from 'react-redux';
 
@@ -10,13 +10,13 @@ function AddBlog(props) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await blogService.addBlog(title, author, url);
+    const res = await addBlog(title, author, url);
     console.log('res', res);
     if (res.error) {
       props.notificationAddBlog(res.error, 'error', 5);
     } else {
       //TODO maybe later make it render immediately, doesn't work now
-      blogService.getAll();
+      getAllBlogs();
       props.notificationAddBlog('Blog has been added', 'success', 5);
     }
   };

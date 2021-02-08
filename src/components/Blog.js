@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import blogService from '../services/blogs';
+import { deleteBlog, addLike } from '../services/blogs';
 import PropTypes from 'prop-types';
 
 const Blog = ({ blog }) => {
@@ -42,10 +42,10 @@ const Blog = ({ blog }) => {
 
   const isUserBlog = checkIfUserBlog();
 
-  function deleteBlog(blogId) {
+  function deleteThisBlog(blogId) {
     if (window.confirm('Delete this blog?')) {
       console.log('delete this');
-      blogService.deleteBlog(blogId);
+      deleteBlog(blogId);
     } else {
       console.log('do not delete this');
     }
@@ -60,7 +60,7 @@ const Blog = ({ blog }) => {
         Likes: {blog.likes}
         <button
           onClick={() => {
-            blogService.addLike(blog.id, blog.likes);
+            addLike(blog.id, blog.likes);
             console.log(blog.id);
           }}
         >
@@ -72,7 +72,7 @@ const Blog = ({ blog }) => {
       {isUserBlog && (
         <button
           onClick={() => {
-            deleteBlog(blog.id);
+            deleteThisBlog(blog.id);
             // console.log('delete this');
           }}
         >
