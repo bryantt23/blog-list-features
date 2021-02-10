@@ -11,7 +11,9 @@ function LoggedInInfo() {
 
   //TODO: make it reflect in UI
   const handleLogout = () => {
-    logout();
+    // logout();
+    dispatch(logout());
+    localStorage.clear();
     dispatch(checkIfUserLoggedIn());
     return <Redirect to='/' />;
   };

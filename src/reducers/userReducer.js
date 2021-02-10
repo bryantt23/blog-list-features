@@ -26,14 +26,24 @@ export const setUser = ({ name, username, token }) => {
 };
 
 export const logout = () => {
-  // debugger;
-  localStorage.clear();
-  return async dispatch => {
+  // localStorage.clear();
+  return dispatch => {
     dispatch({
       type: 'LOGOUT'
     });
   };
 };
+
+// export const getUsers = () => {
+//   return async dispatch => {
+//     const users = await getAllUsers();
+
+//     dispatch({
+//       type: 'GET_USERS',
+//       payload: users
+//     });
+//   };
+// };
 
 export const getUsers = users => {
   return async dispatch => {
