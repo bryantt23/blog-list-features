@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getUsers } from '../reducers/userReducer';
+import { initializeBlogs } from '../reducers/blogReducer';
 import { getAllUsers } from '../services/users';
 import User from './User';
 
@@ -13,6 +14,7 @@ function Users() {
     async function fetchMyAPI() {
       let response = await getAllUsers();
       dispatch(getUsers(response));
+      dispatch(initializeBlogs());
     }
 
     fetchMyAPI();

@@ -46,7 +46,12 @@ function UserInfo() {
       <h4>added blogs</h4>
       <ul>
         {user.blogs.map(blog => {
-          return <li>{blog.title}</li>;
+          console.log(blog);
+          return (
+            <li>
+              <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+            </li>
+          );
         })}
       </ul>
     </div>

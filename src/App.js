@@ -4,6 +4,7 @@ import Notification from './components/Notification';
 import Users from './components/Users';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import UserInfo from './components/UserInfo';
+import BlogInfo from './components/BlogInfo';
 
 const App = props => {
   return (
@@ -16,6 +17,9 @@ const App = props => {
           </Route>
           <Route path='/users'>
             <Users />
+          </Route>
+          <Route path='/blogs/:id'>
+            <BlogInfo />
           </Route>
           <Route path='/'>
             <Main />
