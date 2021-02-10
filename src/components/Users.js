@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getUsers } from '../reducers/userReducer';
 import { getAllUsers } from '../services/users';
+import User from './User';
 
 function Users() {
   const dispatch = useDispatch();
@@ -36,21 +37,19 @@ function Users() {
   //  }
   return (
     <div>
-      <p>users</p>
+      <h1>Users</h1>
+      <table>
+        <th>
+          <td>Name</td>
+          <td>blogs</td>
+        </th>
+        {users &&
+          users.users &&
+          Object.values(users.users).map((user, i) => (
+            <User key={i} user={user} />
+          ))}
+      </table>
       {/* {JSON.stringify(users)} */}
-      {users &&
-        users.users &&
-        Object.values(users.users).map((user, i) => (
-          <div className='travelcompany-input' key={i}>
-            <span className='input-label'>
-              key: {i} Name: {user.username} {user.name}{' '}
-              {JSON.stringify(user.blogs)}
-            </span>
-            <p>
-              <span className='input-label'>{JSON.stringify(user)}</span>
-            </p>
-          </div>
-        ))}
     </div>
   );
 }
