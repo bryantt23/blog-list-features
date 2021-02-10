@@ -22,19 +22,15 @@ function Users() {
     <div>
       <h1>Users</h1>
       <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>blogs</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users &&
-            users.users &&
-            Object.values(users.users).map((user, i) => (
-              <User key={i} user={user} />
-            ))}
-        </tbody>
+        <th>
+          <td>Name</td>
+          <td>blogs</td>
+        </th>
+        {users &&
+          users.users &&
+          Object.values(users.users).map((user, i) => (
+            <User key={i} user={user} />
+          ))}
       </table>
     </div>
   );
