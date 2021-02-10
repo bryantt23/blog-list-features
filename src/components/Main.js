@@ -6,6 +6,7 @@ import { checkIfUserLoggedIn, setUser, logout } from '../reducers/userReducer';
 import { connect } from 'react-redux';
 import BlogList from './BlogList';
 import AddBlog from './AddBlog';
+import LoggedInInfo from './LoggedInInfo';
 import { useSelector } from 'react-redux';
 
 function Main() {
@@ -24,11 +25,6 @@ function Main() {
   const [password, setPassword] = useState('');
   const [formVisible, setFormVisible] = useState(false);
   // const [user, setUser] = useState(null);
-
-  //TODO: make it reflect in UI
-  const handleLogout = () => {
-    logout();
-  };
 
   //TODO: make it reflect in UI
   const handleLogin = async e => {
@@ -73,10 +69,7 @@ function Main() {
   return (
     <div>
       <h2>blogs</h2>
-      <h3>
-        {`Username ${user.username} is logged in `}
-        <button onClick={handleLogout}>logout</button>
-      </h3>
+      <LoggedInInfo />
 
       <BlogList />
 
