@@ -103,6 +103,12 @@ const BlogInfo = () => {
           delete
         </button>
       )}
+      <h3>comments</h3>
+      <ul>
+        {blog.comments.map(comment => {
+          return <li>{comment}</li>;
+        })}
+      </ul>
     </div>
   );
 };
