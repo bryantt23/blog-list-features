@@ -17,7 +17,6 @@ export const checkIfUserLoggedIn = () => {
 
 export const setUser = ({ name, username, token }) => {
   localStorage.setItem('user', JSON.stringify({ name, username, token }));
-
   return async dispatch => {
     dispatch({
       type: 'SET_USER',
@@ -27,24 +26,14 @@ export const setUser = ({ name, username, token }) => {
 };
 
 export const logout = () => {
+  // debugger;
   localStorage.clear();
-  return dispatch => {
+  return async dispatch => {
     dispatch({
       type: 'LOGOUT'
     });
   };
 };
-
-// export const getUsers = () => {
-//   return async dispatch => {
-//     const users = await getAllUsers();
-
-//     dispatch({
-//       type: 'GET_USERS',
-//       payload: users
-//     });
-//   };
-// };
 
 export const getUsers = users => {
   return async dispatch => {

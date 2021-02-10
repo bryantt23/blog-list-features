@@ -7,7 +7,7 @@ import UserInfo from './components/UserInfo';
 import BlogInfo from './components/BlogInfo';
 import Navigation from './components/Navigation';
 
-const App = props => {
+const App = () => {
   return (
     <Router>
       <div>

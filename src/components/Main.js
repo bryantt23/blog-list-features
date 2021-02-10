@@ -6,12 +6,11 @@ import { checkIfUserLoggedIn, setUser, logout } from '../reducers/userReducer';
 import { connect } from 'react-redux';
 import BlogList from './BlogList';
 import AddBlog from './AddBlog';
-import LoggedInInfo from './LoggedInInfo';
 import { useSelector } from 'react-redux';
 
 function Main() {
   const user = useSelector(state => state.user);
-  console.log('user   ', user);
+  // console.log('user   ', user);
 
   const dispatch = useDispatch();
 
@@ -20,33 +19,34 @@ function Main() {
     dispatch(checkIfUserLoggedIn());
   }, [dispatch]);
 
-  console.log('user   ', user);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // console.log('user   ', user);
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
   const [formVisible, setFormVisible] = useState(false);
   // const [user, setUser] = useState(null);
 
   //TODO: make it reflect in UI
-  const handleLogin = async e => {
-    e.preventDefault();
-    const res = await login(username, password);
-    if (res.error) {
-      console.log(res.error);
-    } else {
-      const { name, username, token } = res;
-      setUser({ name, username, token });
-    }
-  };
+  // const handleLogin = async e => {
+  //   e.preventDefault();
+  //   const res = await login(username, password);
+  //   if (res.error) {
+  //     console.log(res.error);
+  //   } else {
+  //     const { name, username, token } = res;
+  //     setUser({ name, username, token });
+  //   }
+  // };
 
   if (!user.loggedIn) {
     return (
       <div>
-        <h2>Log in to application</h2>
+        Log in using the navigation menu
+        {/* <h2>Log in to application</h2>
         <form onSubmit={handleLogin}>
           <input onChange={e => setUsername(e.target.value)} />
           <input onChange={e => setPassword(e.target.value)} />
           <button type='submit'>Submit</button>
-        </form>
+        </form> */}
       </div>
     );
   }
@@ -60,7 +60,7 @@ function Main() {
   //   }
   // }, []);
 
-  console.log(user);
+  // console.log(user);
   // https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
 
   // <Router>
@@ -69,8 +69,6 @@ function Main() {
   return (
     <div>
       <h2>blogs</h2>
-      <LoggedInInfo />
-
       <BlogList />
 
       <div style={showWhenVisible}>
