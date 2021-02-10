@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
 import { deleteBlog, addLike } from '../services/blogs';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { initializeBlogs } from '../reducers/blogReducer';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams
-} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import CommentForm from './CommentForm';
 
 const BlogInfo = () => {
   let { id } = useParams();
-  debugger;
   const blogs = useSelector(state => state.blogs);
   console.log(blogs);
-  debugger;
   const blog = blogs[id];
 
   const blogStyle = {
@@ -104,6 +96,7 @@ const BlogInfo = () => {
         </button>
       )}
       <h3>comments</h3>
+      <CommentForm blogId={blog.id} />
       <ul>
         {blog.comments.map(comment => {
           return <li>{comment}</li>;
