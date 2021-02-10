@@ -29,10 +29,30 @@ function Users() {
   }, [dispatch]);
 
   console.log('users   ', users);
+  console.log('users   ', typeof users);
+  console.log('users.users   ', users.users);
   //  {
   //    JSON.stringify(users);
   //  }
-  return <div>users {JSON.stringify(users)}</div>;
+  return (
+    <div>
+      <p>users</p>
+      {/* {JSON.stringify(users)} */}
+      {users &&
+        users.users &&
+        Object.values(users.users).map((user, i) => (
+          <div className='travelcompany-input' key={i}>
+            <span className='input-label'>
+              key: {i} Name: {user.username} {user.name}{' '}
+              {JSON.stringify(user.blogs)}
+            </span>
+            <p>
+              <span className='input-label'>{JSON.stringify(user)}</span>
+            </p>
+          </div>
+        ))}
+    </div>
+  );
 }
 
 export default Users;
