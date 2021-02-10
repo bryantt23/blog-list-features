@@ -5,11 +5,13 @@ import Users from './components/Users';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import UserInfo from './components/UserInfo';
 import BlogInfo from './components/BlogInfo';
+import Navigation from './components/Navigation';
 
 const App = props => {
   return (
     <Router>
       <div>
+        <Navigation />
         <Notification />
         <Switch>
           <Route path='/users/:id'>
