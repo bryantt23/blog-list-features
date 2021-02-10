@@ -3,6 +3,7 @@ import Main from './components/Main';
 import Notification from './components/Notification';
 import Users from './components/Users';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import UserInfo from './components/UserInfo';
 
 const App = props => {
   return (
@@ -10,6 +11,9 @@ const App = props => {
       <div>
         <Notification />
         <Switch>
+          <Route path='/users/:id'>
+            <UserInfo />
+          </Route>
           <Route path='/users'>
             <Users />
           </Route>
