@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getUsers } from '../reducers/userReducer';
 import { getAllUsers } from '../services/users';
@@ -17,24 +16,8 @@ function Users() {
     }
 
     fetchMyAPI();
-
-    //   const baseUrl = 'http://localhost:3001/api/users/';
-    //   const request = await fetch(baseUrl);
-    //   const res = await request.json();
-    //   console.log(res);
-    //   dispatch({
-    //     type: 'GET_USERS',
-    //     payload: res
-    //   });
-    //   return res;
   }, [dispatch]);
 
-  console.log('users   ', users);
-  console.log('users   ', typeof users);
-  console.log('users.users   ', users.users);
-  //  {
-  //    JSON.stringify(users);
-  //  }
   return (
     <div>
       <h1>Users</h1>
@@ -49,7 +32,6 @@ function Users() {
             <User key={i} user={user} />
           ))}
       </table>
-      {/* {JSON.stringify(users)} */}
     </div>
   );
 }
